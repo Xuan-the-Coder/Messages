@@ -25,6 +25,7 @@ app.get('/messages', (req, res) =>{
 
 app.post('/messages', (req, res) =>{
   var message = new Message(req.body)
+
   message.save((err) => {
     if(err)
       sendStatus(500)
@@ -32,9 +33,6 @@ app.post('/messages', (req, res) =>{
     io.emit('message', req.body)
     res.sendStatus(200)
   })
-  messages.push(req.body)
-  io.emit('message', req.body)
-  res.sendStatus(200)
 })
 
 io.on('connection', (socket) =>
